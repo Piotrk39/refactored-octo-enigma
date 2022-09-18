@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "d2bbe2ad-3cec-4dec-91ba-646b8165b2fc",
+		"name": "Unix Date Format Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10544512"
+	},
+	"item": [
+		{
+			"name": "Happy Path",
+			"item": [
+				{
+					"name": "Date is Correct",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"console.log(response.Datetime)",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"The User readable TimeStamp is: 2019-02-11 13:38:00\", function () {",
+									"    pm.expect(response.Datetime).to.eql(\"2019-02-11 13:38:00\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://showcase.api.linx.twenty57.net/UnixTime/fromunixtimestamp?unixtimestamp=1549892280",
+							"protocol": "https",
+							"host": [
+								"showcase",
+								"api",
+								"linx",
+								"twenty57",
+								"net"
+							],
+							"path": [
+								"UnixTime",
+								"fromunixtimestamp"
+							],
+							"query": [
+								{
+									"key": "unixtimestamp",
+									"value": "1549892280"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Invalid Path",
+			"item": [
+				{
+					"name": "Format is incorrect",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"console.log(response.Datetime)",
+									"",
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"The User readable TimeStamp is: undefined\", function () {",
+									"    pm.expect(response.Datetime).to.eql(undefined);",
+									"});",
+									"",
+									"pm.test(\"Error response matches: Value was either too large or too small\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Value was either too large or too small for an Int32\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://showcase.api.linx.twenty57.net/UnixTime/fromunixtimestamp?unixtimestamp=1549892804235213",
+							"protocol": "https",
+							"host": [
+								"showcase",
+								"api",
+								"linx",
+								"twenty57",
+								"net"
+							],
+							"path": [
+								"UnixTime",
+								"fromunixtimestamp"
+							],
+							"query": [
+								{
+									"key": "unixtimestamp",
+									"value": "1549892804235213"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
